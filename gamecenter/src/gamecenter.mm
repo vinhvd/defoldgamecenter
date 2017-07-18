@@ -13,28 +13,20 @@
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
 
 #if defined(DM_PLATFORM_IOS)
-UIWindow *window = dmGraphics::GetNativeiOSUIWindow();
-UIViewController *rController = window.rootViewController;
+UIViewController *rController = [UIApplication sharedApplication].keyWindow.rootViewController;
 #else
-NSWindow *window = dmGraphics::GetNativeOSXNSWindow();
-NSViewController *rController = window.contentViewController;
+NSViewController *rController = [NSApplication sharedApplication].keyWindow.contentViewController;
 #endif
-
-/*#if defined(DM_PLATFORM_IOS)
-UIViewController *controller = [UIApplication sharedApplication].keyWindow.rootViewController;
-#else
-NSViewController *controller = [NSApplication sharedApplication].keyWindow.contentViewController;
-#endif*/
 
 @interface GameKitHelper : NSObject
-
-#if defined(DM_PLATFORM_IOS)
-@property UIViewController *authenticationViewController;
-#else
-@property NSViewController *authenticationViewController;
-#endif
-
-@property NSError *lastError;
+{
+	#if defined(DM_PLATFORM_IOS)
+	@private UIViewController *m_authenticationViewController;
+	#else
+	@private NSViewController *m_authenticationViewController;
+	#endif
+	@private NSError *m_lastError;
+}
 + (instancetype)sharedGameKitHelper;
 @end
 
@@ -68,8 +60,7 @@ BOOL _enableGameCenter;
     localPlayer.authenticateHandler  =
     ^(UIViewController *viewController, NSError *error) {
         
-         #pragma mark - game halts when invoking the setLast error 
-        //[self setLastError:error];
+        [self setLastError:error];
         
         if(viewController != nil) {
             [self setAuthenticationViewController:viewController];
@@ -83,7 +74,7 @@ BOOL _enableGameCenter;
     localPlayer.authenticateHandler  =
     ^(NSViewController *viewController, NSError *error) {
         
-        //[self setLastError:error];
+        [self setLastError:error];
         
         if(viewController != nil) {
             [self setAuthenticationViewController:viewController];
@@ -99,7 +90,7 @@ BOOL _enableGameCenter;
 #if defined(DM_PLATFORM_IOS)
  - (void)setAuthenticationViewController:(UIViewController *)authenticationViewController
 {
-	self.authenticationViewController = authenticationViewController;
+	m_authenticationViewController = authenticationViewController;
   [[NSNotificationCenter defaultCenter]
    postNotificationName:PresentAuthenticationViewController
    object:self];
@@ -107,7 +98,7 @@ BOOL _enableGameCenter;
 #else
 - (void)setAuthenticationViewController:(NSViewController *)authenticationViewController
 {
-	self.authenticationViewController = authenticationViewController;
+	m_authenticationViewController = authenticationViewController;
   [[NSNotificationCenter defaultCenter]
    postNotificationName:PresentAuthenticationViewController
    object:self];
@@ -117,10 +108,10 @@ BOOL _enableGameCenter;
 - (void)setLastError:(NSError *)error
 {
     if(error) {
-	    self.lastError = [error copy];
-	  	if (self.lastError) {
+	    m_lastError = [error copy];
+	  	if (m_lastError) {
 	    	NSLog(@"GameKitHelper ERROR: %@",
-	        	[[self.lastError userInfo] description]);
+	        	[[m_lastError userInfo] description]);
 	  	}
   	}
 }
@@ -139,7 +130,7 @@ BOOL _enableGameCenter;
 - (void)showAuthenticationViewController
 {	
     [rController presentViewController:
-       self.authenticationViewController
+       m_authenticationViewController
                           animated:YES
                           completion:nil];
 }

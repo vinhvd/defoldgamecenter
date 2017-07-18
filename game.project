@@ -1,6 +1,6 @@
 [project]
 title = Cat Race Tutorial
-version = 0.2
+version = 0.1
 
 [bootstrap]
 main_collection = /main/main.collectionc
