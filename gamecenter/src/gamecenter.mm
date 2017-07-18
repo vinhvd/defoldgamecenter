@@ -29,16 +29,27 @@ NSViewController *controller = [NSApplication sharedApplication].keyWindow.conte
 @interface GameKitHelper : NSObject
 
 #if defined(DM_PLATFORM_IOS)
-@property (nonatomic, readonly) UIViewController *authenticationViewController;
+@property UIViewController *authenticationViewController;
 #else
-@property (nonatomic, readonly) NSViewController *authenticationViewController;
+@property NSViewController *authenticationViewController;
 #endif
 
-@property (nonatomic, readonly) NSError *lastError;
+@property NSError *lastError;
++ (instancetype)sharedGameKitHelper;
 @end
 
 @implementation GameKitHelper
 BOOL _enableGameCenter;
+
++ (instancetype)sharedGameKitHelper
+{
+    static GameKitHelper *sharedGameKitHelper;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedGameKitHelper = [[GameKitHelper alloc] init];
+    });
+    return sharedGameKitHelper;
+}
 
 - (id)init
 {
@@ -72,7 +83,7 @@ BOOL _enableGameCenter;
     localPlayer.authenticateHandler  =
     ^(NSViewController *viewController, NSError *error) {
         
-        [self setLastError:error];
+        //[self setLastError:error];
         
         if(viewController != nil) {
             [self setAuthenticationViewController:viewController];
@@ -140,10 +151,8 @@ BOOL _enableGameCenter;
 
 @end
 
-GameKitHelper *gameKitHelper = [[GameKitHelper alloc] init];
-	
 int authenticate() {
-	[gameKitHelper authenticate];
+	[[GameKitHelper sharedGameKitHelper] authenticate];
 	return 0;
 }
 #endif // DM_PLATFORM_IOS/DM_PLATFORM_OSX

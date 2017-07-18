@@ -1,6 +1,6 @@
 [project]
-title = Defold Game Center
-version = 0.1
+title = Cat Race Tutorial
+version = 0.2
 
 [bootstrap]
 main_collection = /main/main.collectionc
@@ -22,6 +22,6 @@ shared_state = 1
 bundle_identifier = com.siligame.examples.DefoldGameCenter
 
 [ios]
-bundle_identifier = com.siligame.examples.DefoldGameCenter
+bundle_identifier = com.siligame.examples.CatRaceStarter
 infoplist = /extra/Info.plist
 
