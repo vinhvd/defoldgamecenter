@@ -7,9 +7,9 @@
         <key>CFBundleDevelopmentRegion</key>
         <string>en</string>
         <key>CFBundleDisplayName</key>
-        <string>Cat Race Tutorial</string>
+        <string>Defold Game Center</string>
         <key>CFBundleExecutable</key>
-        <string>Cat Race Tutorial</string>
+        <string>Defold Game Center</string>
         <key>CFBundleIconFiles</key>
         <array>
                 <string>Icon-167.png</string>
@@ -43,7 +43,7 @@
                 </dict>
         </dict>
         <key>CFBundleIdentifier</key>
-        <string>com.siligame.examples.CatRaceStarter</string>
+        <string>com.siligame.examples.DefoldGameCenter</string>
         <key>CFBundleInfoDictionaryVersion</key>
         <string>6.0</string>
         <key>CFBundleName</key>
