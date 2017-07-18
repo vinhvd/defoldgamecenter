@@ -16,20 +16,16 @@
 #include "gamecenter_private.h"
 
 
-static int test(lua_State* L)
+static int authenticate(lua_State* L)
 {
-    dmLogInfo("test\n")
-
     DM_LUA_STACK_CHECK(L, 0);
-    int firstParam = luaL_checkint(L, 1);
-    int secondParam = luaL_checkint(L, 2);
-    testParam(firstParam, secondParam);
-    return 0;
+    authenticate();
+	return 0;
 }
 
 static const luaL_reg Module_methods[] =
 {
-    {"test", test},
+    {"authenticate", authenticate},
     {0, 0}
 };
 

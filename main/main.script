@@ -1,54 +1,16 @@
 
-function init(self)
-    local logosize = 128
-    local screen_width = sys.get_config("display.width", 600)
-    local screen_height = sys.get_config("display.height", 800)
-    local scale_width = screen_width / logosize
-    local scale_height = screen_height / logosize
-    
-    go.set("#sprite", "scale", vmath.vector3(scale_width, scale_height, 1) )
-    
+function init(self) 
     if  gamecenter~= nil then
-
-        local sysinfo = sys.get_sys_info()
-        
-        local quality = 6
-        local type = 8
-        if sysinfo.system_name == 'iPhone OS' then
-            type = 9
-            quality = 10
-        end
-        
-        gamecenter.test(type, quality)
-        --if gamecenter.start_capture(type, quality) then
-	        --self.cameraframe = gamecenter.get_frame()
-	        --self.camerainfo = gamecenter.get_info()
-	        --print("Initialized camera")
-	        --pprint(self.camerainfo)    
-	        
-	        --self.cameratextureheader = {width=self.camerainfo.width,
-	        --                            height=self.camerainfo.height,
-	        --                            type=resource.TEXTURE_TYPE_2D,
-	        --                            format=resource.TEXTURE_FORMAT_RGB,
-	        --                            num_mip_maps=1 }
-        --end
+    	print("connect native code ========> authenticate..")
+        gamecenter.authenticate();
     else
         print("could not connect native code")
     end
 end
 
 function final(self)
-    --if self.cameraframe ~= nil then
-    --    gamecenter.stop_capture()
-    --end
 end
 
 
 function update(self, dt)
-    --if self.cameraframe then
-    --    local pathmodelcamera = go.get("#sprite", "texture0")
-    --    resource.set_texture(pathmodelcamera, self.cameratextureheader, self.cameraframe)
-    --end
-    
-    
 end

@@ -1,5 +1,5 @@
 [project]
-title = My project
+title = Defold Game Center
 version = 0.1
 
 [bootstrap]
@@ -17,4 +17,11 @@ scale = 0.02
 
 [script]
 shared_state = 1
+
+[osx]
+bundle_identifier = com.siligame.examples.DefoldGameCenter
+
+[ios]
+bundle_identifier = com.siligame.examples.DefoldGameCenter
+infoplist = /extra/Info.plist
 
