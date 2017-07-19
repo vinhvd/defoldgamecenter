@@ -12,12 +12,6 @@
 #if defined(DM_PLATFORM_IOS) || defined(DM_PLATFORM_OSX)
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
 
-#if defined(DM_PLATFORM_IOS)
-UIViewController *controller = ((UIWindow*)dmGraphics::GetNativeiOSUIWindow()).rootViewController;
-#else
-NSViewController *controller = ((NSWindow*)dmGraphics::GetNativeOSXNSWindow()).contentViewController;
-#endif
-
 @interface GameKitHelper : NSObject
 {
 	#if defined(DM_PLATFORM_IOS)
@@ -111,6 +105,12 @@ BOOL _enableGameCenter;
  
 - (void)showAuthenticationViewController
 {	
+    #if defined(DM_PLATFORM_IOS)
+	UIViewController *controller = ((UIWindow*)dmGraphics::GetNativeiOSUIWindow()).rootViewController;
+	#else
+	NSViewController *controller = ((NSWindow*)dmGraphics::GetNativeOSXNSWindow()).contentViewController;
+	#endif
+    
     [controller presentViewController:
        m_authenticationViewController
                           animated:YES
@@ -128,6 +128,12 @@ BOOL _enableGameCenter;
 
 - (void) authenticate
 {
+	#if defined(DM_PLATFORM_IOS)
+	UIViewController *controller = ((UIWindow*)dmGraphics::GetNativeiOSUIWindow()).rootViewController;
+	#else
+	NSViewController *controller = ((NSWindow*)dmGraphics::GetNativeOSXNSWindow()).contentViewController;
+	#endif
+	
 	[[NSNotificationCenter defaultCenter]
        addObserver:controller
        selector:@selector(showAuthenticationViewController)
@@ -139,6 +145,12 @@ BOOL _enableGameCenter;
 
 - (void)dealloc
 {
+    #if defined(DM_PLATFORM_IOS)
+	UIViewController *controller = ((UIWindow*)dmGraphics::GetNativeiOSUIWindow()).rootViewController;
+	#else
+	NSViewController *controller = ((NSWindow*)dmGraphics::GetNativeOSXNSWindow()).contentViewController;
+	#endif
+    
     [[NSNotificationCenter defaultCenter] removeObserver:controller];
 }
 
