@@ -13,9 +13,9 @@
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
 
 #if defined(DM_PLATFORM_IOS)
-UIViewController *rController = [UIApplication sharedApplication].keyWindow.rootViewController;
+UIViewController *controller = ((UIWindow*)dmGraphics::GetNativeiOSUIWindow()).rootViewController;
 #else
-NSViewController *rController = [NSApplication sharedApplication].keyWindow.contentViewController;
+NSViewController *controller = ((NSWindow*)dmGraphics::GetNativeOSXNSWindow()).contentViewController;
 #endif
 
 @interface GameKitHelper : NSObject
@@ -59,8 +59,10 @@ BOOL _enableGameCenter;
     #if defined(DM_PLATFORM_IOS)
     localPlayer.authenticateHandler  =
     ^(UIViewController *viewController, NSError *error) {
-        
-        [self setLastError:error];
+    
+        if(error){
+        	[self setLastError:error];
+        }
         
         if(viewController != nil) {
             [self setAuthenticationViewController:viewController];
@@ -74,7 +76,9 @@ BOOL _enableGameCenter;
     localPlayer.authenticateHandler  =
     ^(NSViewController *viewController, NSError *error) {
         
-        [self setLastError:error];
+        if(error) {
+        	[self setLastError:error];
+        }
         
         if(viewController != nil) {
             [self setAuthenticationViewController:viewController];
@@ -104,22 +108,28 @@ BOOL _enableGameCenter;
    object:self];
 }
  #endif
+ 
+- (void)showAuthenticationViewController
+{	
+    [controller presentViewController:
+       m_authenticationViewController
+                          animated:YES
+                          completion:nil];
+}
 
 - (void)setLastError:(NSError *)error
 {
-    if(error) {
-	    m_lastError = [error copy];
-	  	if (m_lastError) {
-	    	NSLog(@"GameKitHelper ERROR: %@",
-	        	[[m_lastError userInfo] description]);
-	  	}
-  	}
+	m_lastError = [error copy];
+	if (m_lastError) {
+	    NSLog(@"GameKitHelper ERROR: %@",
+	    [[m_lastError userInfo] description]);
+	}
 }
 
 - (void) authenticate
 {
 	[[NSNotificationCenter defaultCenter]
-       addObserver:rController
+       addObserver:controller
        selector:@selector(showAuthenticationViewController)
        name:PresentAuthenticationViewController
        object:nil];
@@ -127,17 +137,9 @@ BOOL _enableGameCenter;
     [self authenticateLocalPlayer];
 }
 
-- (void)showAuthenticationViewController
-{	
-    [rController presentViewController:
-       m_authenticationViewController
-                          animated:YES
-                          completion:nil];
-}
-
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:rController];
+    [[NSNotificationCenter defaultCenter] removeObserver:controller];
 }
 
 @end
