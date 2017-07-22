@@ -1,10 +1,29 @@
 
 function init(self) 
     if  gamecenter~= nil then
-    	print("connect native code ========> authenticate..")
-        gamecenter.authenticate();
+        gamecenter.login()
     else
         print("could not connect native code")
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("report_scores") then
+    	if  gamecenter~= nil then
+        	gamecenter.reportScore("mac_defold_game_center", message.score)
+        end
+    elseif message_id == hash("show_leaderboards") then
+    	if  gamecenter~= nil then
+        	gamecenter.showLeaderboards()
+        end  
+    elseif message_id == hash("show_highscore") then
+    	if  gamecenter~= nil then
+        	gamecenter.showLeaderboard("mac_defold_game_center")
+        end     
+    elseif message_id == hash("show_achivements") then
+    	if  gamecenter~= nil then
+        	gamecenter.showAchivements()
+        end          
     end
 end
 

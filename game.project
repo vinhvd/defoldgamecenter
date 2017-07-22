@@ -1,5 +1,5 @@
 [project]
-title = Cat Race Tutorial
+title = Defold Apple Game Center
 version = 0.1
 
 [bootstrap]
@@ -19,9 +19,31 @@ scale = 0.02
 shared_state = 1
 
 [osx]
-bundle_identifier = com.siligame.examples.DefoldGameCenter
+bundle_identifier = com.siligame.mac.example.defoldgamecenter
+infoplist = /supportfiles/osx/Info.plist
 
 [ios]
-bundle_identifier = com.siligame.examples.CatRaceStarter
-infoplist = /extra/Info.plist
+bundle_identifier = com.siligame.example.defoldgamecenter
+infoplist = /supportfiles/ios/Info.plist
+app_icon_120x120 = /supportfiles/ios/icon/60pt@2x.png
+app_icon_180x180 = /supportfiles/ios/icon/60pt@3x.png
+app_icon_76x76 = /supportfiles/ios/icon/76pt@1x.png
+app_icon_152x152 = /supportfiles/ios/icon/76pt@2x.png
+app_icon_57x57 = /supportfiles/ios/icon/57pt@1x.png
+app_icon_114x114 = /supportfiles/ios/icon/57pt@2x.png
+app_icon_72x72 = /supportfiles/ios/icon/72pt@1x.png
+app_icon_144x144 = /supportfiles/ios/icon/72pt@2x.png
+app_icon_167x167 = /supportfiles/ios/icon/83.5pt@2x.png
+launch_image_320x480 = /supportfiles/ios/launch/iphone portrait 5 6@1x.png
+launch_image_640x960 = /supportfiles/ios/launch/iphone portrait 5 6@2x.png
+launch_image_640x1136 = /supportfiles/ios/launch/iPhone Portrait iOS7,9 – Retina 4.png
+launch_image_750x1334 = /supportfiles/ios/launch/iPhone Portrait iOS8 9 – Retina HD 4.7.png
+launch_image_768x1024 = /supportfiles/ios/launch/Pad Portrait iOS 5,6@1x.png
+launch_image_1536x2048 = /supportfiles/ios/launch/iPad Portrait iOS 7-9@2x.png
+launch_image_1024x768 = /supportfiles/ios/launch/iPad Landscape iOS 7-9@1x.png
+launch_image_1242x2208 = /supportfiles/ios/launch/iPhone Portrait iOS8 9– Retina HD 5.5.png
+launch_image_2208x1242 = /supportfiles/ios/launch/iPhone Landscape iOS8 9– Retina HD 5.5.png
+launch_image_2048x1536 = /supportfiles/ios/launch/iPad Landscape iOS 7-9@2x.png
+launch_image_2048x2732 = /supportfiles/ios/launch/2048_2732.png
+launch_image_2732x2048 = /supportfiles/ios/launch/2732-2048.png
 
