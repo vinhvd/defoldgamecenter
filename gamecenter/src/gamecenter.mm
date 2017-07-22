@@ -138,7 +138,7 @@ BOOL _enableGameCenter;
 - (void)showAuthenticationViewController
 {	
     #if defined(DM_PLATFORM_IOS)
-    [controller presentViewController:
+    [self presentViewController:
        m_authenticationViewController
                           animated:YES
                           completion:nil];
