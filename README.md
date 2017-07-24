@@ -1,14 +1,14 @@
 # defoldgamecenter
 Defold Game Center native extension. Only support basic funtionalities for now. 
 
-#API:
+# API:
 - Login
 - Report score to a specifed Leaderboard
 - Show all Leaderboards
 - Show a specified Leaderboard
 - Show achivements
 
-#Limitation:
+# Limitation:
 - No callbacks.
 - No return values.
 
