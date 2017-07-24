@@ -10,7 +10,7 @@ end
 function on_message(self, message_id, message, sender)
     if message_id == hash("report_scores") then
     	if  gamecenter~= nil then
-        	gamecenter.reportScore("mac_defold_game_center", message.score)
+        	gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score)
         end
     elseif message_id == hash("show_leaderboards") then
     	if  gamecenter~= nil then
@@ -18,7 +18,7 @@ function on_message(self, message_id, message, sender)
         end  
     elseif message_id == hash("show_highscore") then
     	if  gamecenter~= nil then
-        	gamecenter.showLeaderboard("mac_defold_game_center")
+        	gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")
         end     
     elseif message_id == hash("show_achivements") then
     	if  gamecenter~= nil then

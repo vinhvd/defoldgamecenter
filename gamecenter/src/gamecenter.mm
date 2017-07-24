@@ -18,7 +18,6 @@
  *******************************************************************************/
 
 #include <dmsdk/sdk.h>
-#include <dmsdk/graphics/graphics_native.h>
 #include "gamecenter_private.h"
 
 #include <Foundation/Foundation.h>
@@ -30,12 +29,6 @@
 
 #if defined(DM_PLATFORM_IOS) || defined(DM_PLATFORM_OSX)
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
-
-/*#if defined(DM_PLATFORM_IOS)
-UIViewController *controller = ((UIWindow*)dmGraphics::GetNativeiOSUIWindow()).rootViewController;
-#else
-NSViewController *controller = ((NSWindow*)dmGraphics::GetNativeOSXNSWindow()).contentViewController;
-#endif*/
 
 #if defined(DM_PLATFORM_IOS)
 @interface GameKitManager : UIViewController <GKGameCenterControllerDelegate>
@@ -138,10 +131,10 @@ BOOL _enableGameCenter;
 - (void)showAuthenticationViewController
 {	
     #if defined(DM_PLATFORM_IOS)
-    [self presentViewController:
-       m_authenticationViewController
-                          animated:YES
-                          completion:nil];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:
+     m_authenticationViewController
+                       animated:YES
+                     completion:nil];                 
                           
     #else                    
     [self presentViewControllerAsModalWindow:m_authenticationViewController];     
@@ -194,18 +187,39 @@ BOOL _enableGameCenter;
     	gameCenterController.leaderboardIdentifier = leaderboardId;
     }
     gameCenterController.gameCenterDelegate = self;
+    
+    
+     #if defined(DM_PLATFORM_IOS)
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:
+     gameCenterController
+                       animated:YES
+                     completion:nil];   
+    #else  
     [self presentViewControllerAsModalWindow:gameCenterController];
+    #endif     
 }
 
 - (void)showAchivements {
 	GKGameCenterViewController* gameCenterController = [[GKGameCenterViewController alloc] init];
     gameCenterController.viewState = GKGameCenterViewControllerStateAchievements;
     gameCenterController.gameCenterDelegate = self;
-    [self presentViewControllerAsModalWindow:gameCenterController];   
+    
+    #if defined(DM_PLATFORM_IOS)
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:
+     gameCenterController
+                       animated:YES
+                     completion:nil];   
+    #else  
+    [self presentViewControllerAsModalWindow:gameCenterController];
+    #endif      
 }
 
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController*) gameCenterViewController {
+    #if defined(DM_PLATFORM_IOS)
+    [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:true completion:nil];
+    #else
     [self dismissViewController:gameCenterViewController];
+     #endif    
 }
 
 - (void)dealloc
