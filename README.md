@@ -1,4 +1,4 @@
-# defoldgamecenter
+# Defold Apple Game Center Native Extension
 Defold Game Center native extension. Only support basic funtionalities for now. 
 
 # API:
