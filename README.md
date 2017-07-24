@@ -12,7 +12,7 @@ gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", mess
 ```
 - ###### Show all Leaderboards
 ```lua
-gamecenter.login()
+gamecenter.showLeaderboards()
 ```
 - ###### Show a specified Leaderboard
 ```lua    
