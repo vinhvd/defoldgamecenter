@@ -61,3 +61,16 @@ elseif message_id == hash("show_achievements") then
    end 
 end 
 ```
+## Screenshots:
+- ###### Log in
+![Game Center](https://s13.postimg.org/wo4jyqkhj/image.png "Log in")
+- ###### Log in progress
+![Game Center](https://s13.postimg.org/88wbxolkn/image.png "Log in progress")
+- ###### Logged in
+![Game Center](https://s13.postimg.org/xu8jxj8s7/image.png "Logged in")
+- ###### Show a leaderboard
+![Game Center](https://s13.postimg.org/qczcibj93/image.png "Show a leaderboards")
+- ###### Show leaderboards
+![Game Center](https://s13.postimg.org/hyjpu8i7r/image.png "Show leaderboards")
+- ###### Show Achievements
+![Game Center](https://s13.postimg.org/ffy0tjwhj/image.png "Show Achievements")
