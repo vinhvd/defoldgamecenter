@@ -22,8 +22,8 @@ else
     print("could not connect native code")
 end
 
--- Others
-if message_id == hash("report_scores") then
+-- Others --
+
 -- Report score to a specified Leaderboard
 if message_id == hash("report_scores") then
   if gamecenter~= nil then
@@ -43,5 +43,6 @@ elseif message_id == hash("show_highscore") then
 elseif message_id == hash("show_achivements") then
    if gamecenter~= nil then
      gamecenter.showAchivements()
-   end          
+   end 
+end 
 ```
