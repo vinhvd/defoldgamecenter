@@ -18,9 +18,9 @@ gamecenter.showLeaderboards()
 ```lua    
 gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")     
 ```
-- ###### Show achivements
+- ###### Show achievements
 ```lua
-gamecenter.showAchivements()     
+gamecenter.showAchievements()     
 ```
 
 ## Limitation:
@@ -54,10 +54,10 @@ elseif message_id == hash("show_highscore") then
    if gamecenter~= nil then
       gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")
    end     
--- Show Achivements
-elseif message_id == hash("show_achivements") then
+-- Show Achievements
+elseif message_id == hash("show_achievements") then
    if gamecenter~= nil then
-     gamecenter.showAchivements()
+     gamecenter.showAchievements()
    end 
 end 
 ```
