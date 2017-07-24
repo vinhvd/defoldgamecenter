@@ -199,7 +199,7 @@ BOOL _enableGameCenter;
     #endif     
 }
 
-- (void)showAchivements {
+- (void)showAchievements {
 	GKGameCenterViewController* gameCenterController = [[GKGameCenterViewController alloc] init];
     gameCenterController.viewState = GKGameCenterViewControllerStateAchievements;
     gameCenterController.gameCenterDelegate = self;
@@ -249,8 +249,8 @@ int showLeaderboard(const char *leaderboardId) {
 	return 0;
 }
 
-int showAchivements() {
-	[[GameKitManager sharedGameKitManager] showAchivements];
+int showAchievements() {
+	[[GameKitManager sharedGameKitManager] showAchievements];
 	return 0;
 }
 // END API

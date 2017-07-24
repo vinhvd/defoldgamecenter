@@ -25,4 +25,4 @@ extern int login();
 extern int reportScore(const char *leaderboardId, int score);
 extern int showLeaderboards();
 extern int showLeaderboard(const char *leaderboardId);
-extern int showAchivements();
+extern int showAchievements();

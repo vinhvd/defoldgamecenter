@@ -1,6 +1,6 @@
 [project]
 title = Defold Apple Game Center
-version = 0.32
+version = 0.11
 
 [bootstrap]
 main_collection = /main/main.collectionc

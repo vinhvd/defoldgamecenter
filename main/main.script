@@ -20,9 +20,9 @@ function on_message(self, message_id, message, sender)
     	if  gamecenter~= nil then
         	gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")
         end     
-    elseif message_id == hash("show_achivements") then
+    elseif message_id == hash("show_achievements") then
     	if  gamecenter~= nil then
-        	gamecenter.showAchivements()
+        	gamecenter.showAchievements()
         end          
     end
 end

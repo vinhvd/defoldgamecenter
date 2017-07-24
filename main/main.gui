@@ -285,7 +285,7 @@ nodes {
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
   texture: ""
-  id: "achivementsBtn"
+  id: "achievementsBtn"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -338,9 +338,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Achivements"
+  text: "Achievements"
   font: "system_font"
-  id: "achivementsText"
+  id: "achievementsText"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -358,7 +358,7 @@ nodes {
   }
   adjust_mode: ADJUST_MODE_FIT
   line_break: false
-  parent: "achivementsBtn"
+  parent: "achievementsBtn"
   layer: ""
   inherit_alpha: true
   clipping_mode: CLIPPING_MODE_NONE

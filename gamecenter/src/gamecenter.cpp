@@ -76,12 +76,12 @@ static int showLeaderboards(lua_State* L)
     return 0;
 }
 
-/** Load Achivements
+/** Load Achievements
 */
-static int showAchivements(lua_State* L)
+static int showAchievements(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
-    showAchivements();
+    showAchievements();
     return 0;
 }
 
@@ -91,7 +91,7 @@ static const luaL_reg Module_methods[] =
     {"reportScore", reportScore},
     {"showLeaderboards", showLeaderboards},
     {"showLeaderboard", showLeaderboard},
-    {"showAchivements", showAchivements},
+    {"showAchievements", showAchievements},
     {0, 0}
 };
 
