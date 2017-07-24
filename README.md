@@ -1,11 +1,11 @@
 # Defold Apple Game Center Native Extension
 Defold Game Center native extension. Only support basic funtionalities for now. 
 
-## Usage API:
+## Usage:
 ```
 Copy the whole gamecenter folder to your project root folder.
 ```
-## API:
+## APIs:
 - ###### Login
 ```lua
 gamecenter.login()
