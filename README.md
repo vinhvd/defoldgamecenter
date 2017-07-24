@@ -63,14 +63,14 @@ end
 ```
 ## Screenshots:
 - ###### Log in
-![Game Center](http://s13.postimg.org/wo4jyqkhj/image.png "Log in")
+![ScreenShot](http://s13.postimg.org/wo4jyqkhj/image.png "Log in")
 - ###### Log in progress
-![Game Center](http://s13.postimg.org/88wbxolkn/image.png "Log in progress")
+![ScreenShot](http://s13.postimg.org/88wbxolkn/image.png "Log in progress")
 - ###### Logged in
-![Game Center](http://s13.postimg.org/xu8jxj8s7/image.png "Logged in")
+![ScreenShot](http://s13.postimg.org/xu8jxj8s7/image.png "Logged in")
 - ###### Show a leaderboard
-![Game Center](http://s13.postimg.org/qczcibj93/image.png "Show a leaderboards")
+![ScreenShot](http://s13.postimg.org/qczcibj93/image.png "Show a leaderboards")
 - ###### Show leaderboards
-![Game Center](http://s13.postimg.org/hyjpu8i7r/image.png "Show leaderboards")
+![ScreenShot](http://s13.postimg.org/hyjpu8i7r/image.png "Show leaderboards")
 - ###### Show Achievements
-![Game Center](http://s13.postimg.org/ffy0tjwhj/image.png "Show Achievements")
+![ScreenShot](http://s13.postimg.org/ffy0tjwhj/image.png "Show Achievements")
