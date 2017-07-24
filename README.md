@@ -11,6 +11,7 @@ Defold Game Center native extension. Only support basic funtionalities for now.
 # Limitation:
 - No callbacks.
 - No return values.
+- No Exception handle.
 
 # Usage:
 ```
