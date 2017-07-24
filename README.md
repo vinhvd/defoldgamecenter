@@ -14,7 +14,7 @@ Defold Game Center native extension. Only support basic funtionalities for now.
 - No Exception handle.
 
 # Usage:
-```
+```lua
 -- Login 
 if  gamecenter~= nil then
     gamecenter.login()
