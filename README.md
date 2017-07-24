@@ -1,19 +1,34 @@
 # Defold Apple Game Center Native Extension
 Defold Game Center native extension. Only support basic funtionalities for now. 
 
-# API:
-- Login
-- Report score to a specifed Leaderboard
-- Show all Leaderboards
-- Show a specified Leaderboard
-- Show achivements
+## API:
+- ###### Login
+```lua
+gamecenter.login()
+```
+- ###### Report score to a specifed Leaderboard
+```lua
+gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score)
+```
+- ###### Show all Leaderboards
+```lua
+gamecenter.login()
+```
+- ###### Show a specified Leaderboard
+```lua    
+gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")     
+```
+- ###### Show achivements
+```lua
+gamecenter.showAchivements()     
+```
 
-# Limitation:
+## Limitation:
 - No callbacks.
 - No return values.
 - No Exception handle.
 
-# Usage:
+## Examples:
 ```lua
 -- Login 
 if  gamecenter~= nil then
