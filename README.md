@@ -63,14 +63,14 @@ end
 ```
 ## Screenshots:
 - ###### Log in
-![ScreenShot](http://s13.postimg.org/wo4jyqkhj/image.png "Log in")
+![ScreenShot](https://s4.postimg.org/t7gzzsef1/image.png "Log in")
 - ###### Log in progress
-![ScreenShot](http://s13.postimg.org/88wbxolkn/image.png "Log in progress")
+![ScreenShot](https://s4.postimg.org/xun21k1rx/image.png "Log in progress")
 - ###### Logged in
-![ScreenShot](http://s13.postimg.org/xu8jxj8s7/image.png "Logged in")
+![ScreenShot](https://s4.postimg.org/xx6xoe5fh/image.png "Logged in")
 - ###### Show a leaderboard
-![ScreenShot](http://s13.postimg.org/qczcibj93/image.png "Show a leaderboards")
+![ScreenShot](https://s4.postimg.org/oo4re9wjh/image.png "Show a leaderboards")
 - ###### Show leaderboards
-![ScreenShot](http://s13.postimg.org/hyjpu8i7r/image.png "Show leaderboards")
+![ScreenShot](https://s4.postimg.org/qihlw0jjx/image.png "Show leaderboards")
 - ###### Show Achievements
-![ScreenShot](http://s13.postimg.org/ffy0tjwhj/image.png "Show Achievements")
+![ScreenShot](https://s4.postimg.org/aya85h9fh/image.png "Show Achievements")
