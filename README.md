@@ -14,6 +14,14 @@ Defold Game Center native extension. Only support basic funtionalities for now.
 
 # Usage:
 ```
+-- Login 
+if  gamecenter~= nil then
+    gamecenter.login()
+else
+    print("could not connect native code")
+end
+
+-- Others
 if message_id == hash("report_scores") then
     -- Report score to a specified Leaderboard
     if message_id == hash("report_scores") then
