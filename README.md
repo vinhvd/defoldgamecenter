@@ -1,7 +1,11 @@
 # Defold Apple Game Center Native Extension
 Defold Game Center native extension. Only support basic funtionalities for now. 
 
-## API:
+## Usage:
+```
+Copy the whole gamecenter folder to your project root folder.
+```
+## APIs:
 - ###### Login
 ```lua
 gamecenter.login()
@@ -18,9 +22,9 @@ gamecenter.showLeaderboards()
 ```lua    
 gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")     
 ```
-- ###### Show achivements
+- ###### Show achievements
 ```lua
-gamecenter.showAchivements()     
+gamecenter.showAchievements()     
 ```
 
 ## Limitation:
@@ -54,10 +58,23 @@ elseif message_id == hash("show_highscore") then
    if gamecenter~= nil then
       gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")
    end     
--- Show Achivements
-elseif message_id == hash("show_achivements") then
+-- Show Achievements
+elseif message_id == hash("show_achievements") then
    if gamecenter~= nil then
-     gamecenter.showAchivements()
+     gamecenter.showAchievements()
    end 
 end 
 ```
+## Screenshots:
+- ###### Log in
+![ScreenShot](https://s4.postimg.org/t7gzzsef1/image.png "Log in")
+- ###### Log in progress
+![ScreenShot](https://s4.postimg.org/xun21k1rx/image.png "Log in progress")
+- ###### Logged in
+![ScreenShot](https://s4.postimg.org/xx6xoe5fh/image.png "Logged in")
+- ###### Show a leaderboard
+![ScreenShot](https://s4.postimg.org/oo4re9wjh/image.png "Show a leaderboards")
+- ###### Show leaderboards
+![ScreenShot](https://s4.postimg.org/qihlw0jjx/image.png "Show leaderboards")
+- ###### Show Achievements
+![ScreenShot](https://s4.postimg.org/aya85h9fh/image.png "Show Achievements")
