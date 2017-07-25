@@ -8,7 +8,7 @@ function init(self)
 end
 
 function on_message(self, message_id, message, sender)
-    if message_id == hash("report_scores") then
+    if message_id == hash("report_score") then
     	if  gamecenter~= nil then
         	gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score)
         end

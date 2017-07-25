@@ -43,7 +43,7 @@ nodes {
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
   texture: ""
-  id: "reportScoresBtn"
+  id: "reportScoreBtn"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -96,9 +96,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Report Scores"
+  text: "Report Score"
   font: "system_font"
-  id: "reportScoresText"
+  id: "reportScoreText"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -116,7 +116,7 @@ nodes {
   }
   adjust_mode: ADJUST_MODE_FIT
   line_break: false
-  parent: "reportScoresBtn"
+  parent: "reportScoreBtn"
   layer: ""
   inherit_alpha: true
   clipping_mode: CLIPPING_MODE_NONE
