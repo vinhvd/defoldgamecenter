@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
- 
+
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -34,8 +34,8 @@
 
 #include "gamecenter_private.h"
 
-/** Authenticate local player, show Game Center login modal if not logged yet. 
-*/
+/** Authenticate local player, show Game Center login modal if not logged yet.
+ */
 static int login(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
@@ -44,9 +44,9 @@ static int login(lua_State* L)
 }
 
 /** Submit a score for a specified Leader Board
-* @param 1 The leaderboard identity to report
-* @param 2 The score to report
-*/
+ * @param 1 The leaderboard identity to report
+ * @param 2 The score to report
+ */
 static int reportScore(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
@@ -57,8 +57,8 @@ static int reportScore(lua_State* L)
 }
 
 /** Load a specified Leader Board
-* @param 1 The leaderboard identity to load
-*/
+ * @param 1 The leaderboard identity to load
+ */
 static int showLeaderboard(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
@@ -68,7 +68,7 @@ static int showLeaderboard(lua_State* L)
 }
 
 /** Load Leader Boards
-*/
+ */
 static int showLeaderboards(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
@@ -77,7 +77,7 @@ static int showLeaderboards(lua_State* L)
 }
 
 /** Load Achievements
-*/
+ */
 static int showAchievements(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
@@ -100,7 +100,7 @@ static void LuaInit(lua_State* L)
 {
     int top = lua_gettop(L);
     luaL_register(L, MODULE_NAME, Module_methods);
-
+    
     lua_pop(L, 1);
     assert(top == lua_gettop(L));
 }

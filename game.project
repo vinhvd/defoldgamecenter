@@ -1,6 +1,6 @@
 [project]
 title = Defold Apple Game Center
-version = 0.12
+version = 0.21
 
 [bootstrap]
 main_collection = /main/main.collectionc
@@ -20,7 +20,7 @@ shared_state = 1
 
 [osx]
 bundle_identifier = com.siligame.mac.example.defoldgamecenter
-infoplist = /supportfiles/osx/Info.plist
+infoplist = 
 
 [ios]
 bundle_identifier = com.siligame.example.defoldgamecenter
