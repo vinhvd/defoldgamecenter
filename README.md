@@ -27,21 +27,55 @@ gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")
 gamecenter.showAchievements()     
 ```
 
-## Limitation:
-- No callbacks.
-- No return values.
-- No Exception handle.
-
 ## Examples:
 ```lua
--- Login 
-if  gamecenter~= nil then
-    gamecenter.login()
-else
-    print("could not connect native code")
+-- Login --
+
+-- Login callback
+local function login_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+		
+	end
+end
+
+-- Login
+function init(self) 
+    if  gamecenter~= nil then
+        gamecenter.login(login_cb)
+    else
+        print("could not connect native code")
+    end
 end
 
 -- Others --
+
+-- submit achievement callback
+local function submit_achievement_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+		
+	end
+end
+
+-- reset achievement callback
+local function reset_achievements_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+		
+	end
+end
+
+-- report score callback
+local function report_score_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
 
 -- Report score to a specified Leaderboard
 if message_id == hash("report_scores") then
@@ -63,7 +97,13 @@ elseif message_id == hash("show_achievements") then
    if gamecenter~= nil then
      gamecenter.showAchievements()
    end 
-end 
+-- Submit Achievement
+elseif message_id == hash("submit_achievement") then
+        gamecenter.submitAchievement({identifier="com.siligame.example.defoldgamecenter.achievementA", percentComplete=45.0}, submit_achievement_cb)  
+-- Reset Achievements
+elseif message_id == hash("reset_achievements") then
+        gamecenter.resetAchievements(reset_achievements_cb)                
+end
 ```
 ## Screenshots:
 - ###### Log in
