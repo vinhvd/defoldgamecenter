@@ -1,29 +1,52 @@
+local function login_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)	
+	end
+end
 
 function init(self) 
     if  gamecenter~= nil then
-        gamecenter.login()
+        gamecenter.login(login_cb)
     else
         print("could not connect native code")
     end
 end
 
+local function submit_achievement_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
+local function reset_achievements_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)	
+	end
+end
+
+local function report_score_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
 function on_message(self, message_id, message, sender)
     if message_id == hash("report_score") then
-    	if  gamecenter~= nil then
-        	gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score)
-        end
+        gamecenter.reportScore({leaderboardId="com.siligame.example.defoldgamecenter.leaderboard", score=message.score}, report_score_cb)
     elseif message_id == hash("show_leaderboards") then
-    	if  gamecenter~= nil then
-        	gamecenter.showLeaderboards()
-        end  
+        gamecenter.showLeaderboards(gamecenter.LEADERBOARD_TIME_SCOPE_WEEK) 
     elseif message_id == hash("show_highscore") then
-    	if  gamecenter~= nil then
-        	gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")
-        end     
+        gamecenter.showLeaderboards("com.siligame.example.defoldgamecenter.leaderboard", gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)      
     elseif message_id == hash("show_achievements") then
-    	if  gamecenter~= nil then
-        	gamecenter.showAchievements()
-        end          
+        gamecenter.showAchievements()    
+    elseif message_id == hash("submit_achievement") then
+        gamecenter.submitAchievement({identifier="com.siligame.example.defoldgamecenter.achievementA", percentComplete=45.0}, submit_achievement_cb)  
+    elseif message_id == hash("reset_achievements") then
+        gamecenter.resetAchievements(reset_achievements_cb)                
     end
 end
 
@@ -32,4 +55,5 @@ end
 
 
 function update(self, dt)
+
 end

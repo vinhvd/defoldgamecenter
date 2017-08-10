@@ -16,10 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-
+ 
 #include <dmsdk/sdk.h>
 #include "gamecenter_private.h"
-
 #include <Foundation/Foundation.h>
 #include <GameKit/GameKit.h>
 
@@ -31,25 +30,23 @@
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
 
 @protocol GameCenterManagerDelegate <GKGameCenterControllerDelegate>
-
 @end
 
 #if defined(DM_PLATFORM_IOS)
 @interface GameKitManager : UIViewController <GameCenterManagerDelegate>
 {
 @private UIViewController *m_authenticationViewController;
-}
-+ (instancetype)sharedGameKitManager;
-@end
-
 #else
 @interface GameKitManager : NSViewController <GameCenterManagerDelegate>
 {
 @private NSViewController *m_authenticationViewController;
+#endif
+
+@private id<GameCenterManagerDelegate, NSObject> m_delegate;
 }
 + (instancetype)sharedGameKitManager;
 @end
-#endif
+
 
 @implementation GameKitManager
 
@@ -67,69 +64,52 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
 {
     self = [super init];
     if (self) {
+    	m_delegate = self;
     }
     return self;
 }
 
-- (void)authenticateLocalPlayer
+- (void)authenticateLocalPlayer:(CallbackFn) fn withCallbackInfo:(CallbackInfo*) cbk
 {
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     
 #if defined(DM_PLATFORM_IOS)
     localPlayer.authenticateHandler  =
     ^(UIViewController *viewController, NSError *error) {
-        
-        if(viewController != nil) {
-            [self setAuthenticationViewController:viewController];
-        } else if([GKLocalPlayer localPlayer].isAuthenticated) {
-        } else {
-        }
-    };
-#else
+#else        
     localPlayer.authenticateHandler  =
     ^(NSViewController *viewController, NSError *error) {
-        
+#endif  
+		if (error != nil)
+        {
+            cbk->m_Error = new GKError([error code], [[error localizedDescription] UTF8String]);
+        }
+              
         if(viewController != nil) {
             [self setAuthenticationViewController:viewController];
         } else if([GKLocalPlayer localPlayer].isAuthenticated) {
+        	fn(cbk);
         } else {
+        	cbk->m_Error = new GKError(GKErrorUnknown, "Unknown");
+        	fn(cbk);
         }
     };
-#endif
 }
 
 #if defined(DM_PLATFORM_IOS)
 - (void)setAuthenticationViewController:(UIViewController *)authenticationViewController
-{
-    m_authenticationViewController = authenticationViewController;
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:PresentAuthenticationViewController
-     object:self];
-}
 #else
 - (void)setAuthenticationViewController:(NSViewController *)authenticationViewController
-{
+#endif 
+	{   
     m_authenticationViewController = authenticationViewController;
     [[NSNotificationCenter defaultCenter]
      postNotificationName:PresentAuthenticationViewController
      object:self];
 }
-#endif
 
-- (void)showAuthenticationViewController
-{
-#if defined(DM_PLATFORM_IOS)
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:
-     m_authenticationViewController
-                                                                                 animated:YES
-                                                                               completion:nil];
-    
-#else
-    [self presentViewControllerAsModalWindow:m_authenticationViewController];
-#endif
-}
 
-- (void) login
+- (void) login:(CallbackFn) fn withCallbackInfo:(CallbackInfo*) cbk
 {
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -137,36 +117,74 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
      name:PresentAuthenticationViewController
      object:nil];
     
-    [self authenticateLocalPlayer];
+    [self authenticateLocalPlayer:fn withCallbackInfo:cbk];
 }
 
-- (int) reportScore:(NSString*)leaderboardId score:(int)score {
-    GKScore* highScore = [[GKScore alloc] initWithLeaderboardIdentifier:leaderboardId];
-    highScore.value = (int64_t)score;
-    [GKScore reportScores:@[highScore] withCompletionHandler:^(NSError *error) {
-        NSLog(@"Game Center : report score : %@", [[error userInfo] description]);
+- (void) reportScore:(NSString*)leaderboardId score:(int)score withCallback:(CallbackFn) fn withCallbackInfo:(CallbackInfo*) cbk
+{
+    GKScore* scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier:leaderboardId];
+    scoreReporter.value = (int64_t)score;
+    [GKScore reportScores:@[scoreReporter] withCompletionHandler:^(NSError *error) {
+        if (error)
+        {
+            cbk->m_Error = new GKError([error code], [[error localizedDescription] UTF8String]);
+        }
+        fn(cbk);
     }];
-    return 0;
+}
+    
+- (void)submitAchievement:(NSString*)identifier withPercentComplete:(double)percentComplete withCallback:(CallbackFn)fn withCallbackInfo:(CallbackInfo*) cbk
+{
+    GKAchievement *achievement = [[[GKAchievement alloc] initWithIdentifier:identifier]  autorelease];
+    [achievement setPercentComplete:percentComplete];
+    [achievement reportAchievementWithCompletionHandler:^(NSError  *error) {
+        if (error)
+        {
+            cbk->m_Error = new GKError([error code], [[error localizedDescription] UTF8String]);
+        }
+        fn(cbk);
+    }];
 }
 
-- (void)showLeaderboard:(NSString*)leaderboardId {
-    [self showLeaderboards:leaderboardId];
+- (void)resetAchievements:(CallbackFn)fn withCallbackInfo:(CallbackInfo*) cbk {
+    [GKAchievement resetAchievementsWithCompletionHandler:^(NSError *error) {
+        if (error)
+        {
+            cbk->m_Error = new GKError([error code], [[error localizedDescription] UTF8String]);
+        }
+        fn(cbk);
+    }];
 }
 
-- (void)showLeaderboards {
-    [self showLeaderboards:nil];
+// BEGIN SHOW THE STANDARD USER INTERFACE
+- (void)showAuthenticationViewController
+{
+#if defined(DM_PLATFORM_IOS)
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:
+     m_authenticationViewController
+                                                                                 animated:YES
+                                                                               completion:nil];
+#else
+    [self presentViewControllerAsModalWindow:m_authenticationViewController];
+#endif
 }
 
+- (void)showLeaderboards:(NSString*)leaderboardId withTimeScope:(int)timeScope {
+    [self showLeaderboard:leaderboardId withTimeScope:timeScope];
+}
 
-- (void)showLeaderboards:(NSString*)leaderboardId {
+- (void)showLeaderboards:(int)timeScope {
+    [self showLeaderboard:nil withTimeScope:timeScope];
+}
+
+- (void)showLeaderboard:(NSString*)leaderboardId withTimeScope:(int)timeScope {
     GKGameCenterViewController* gameCenterController = [[GKGameCenterViewController alloc] init];
     gameCenterController.viewState = GKGameCenterViewControllerStateLeaderboards;
-    
+    gameCenterController.leaderboardTimeScope = (LeaderboardTimeScope)timeScope;
     if(leaderboardId != nil) {
         gameCenterController.leaderboardIdentifier = leaderboardId;
     }
     gameCenterController.gameCenterDelegate = self;
-    
     
 #if defined(DM_PLATFORM_IOS)
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:
@@ -188,7 +206,10 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
     [self presentViewControllerAsModalWindow:gameCenterController];
 #endif
 }
+// END SHOW THE STANDARD USER INTERFACE
 
+
+// BEGIN DELEGATE
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController*) gameCenterViewController {
 #if defined(DM_PLATFORM_IOS)
     [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:true completion:nil];
@@ -196,6 +217,8 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
     [self dismissViewController:gameCenterViewController];
 #endif
 }
+
+//END DELEGATE
 
 - (void)dealloc
 {
@@ -205,28 +228,33 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
 @end
 
 // BEGIN API
-int login() {
-    [[GameKitManager sharedGameKitManager] login];
-    return 0;
+
+void login(CallbackFn fn , CallbackInfo* cbk) {
+    [[GameKitManager sharedGameKitManager] login:fn withCallbackInfo:cbk];
 }
 
-int reportScore(const char *leaderboardId, int score) {
-    return [[GameKitManager sharedGameKitManager] reportScore:@(leaderboardId) score:score];
+void reportScore(const char *leaderboardId, int score, CallbackFn fn , CallbackInfo* cbk) {
+    [[GameKitManager sharedGameKitManager] reportScore:@(leaderboardId) score:score withCallback:fn withCallbackInfo:cbk];
 }
 
-int showLeaderboards() {
-    [[GameKitManager sharedGameKitManager] showLeaderboards];
-    return 0;
+void showLeaderboards(int timeScope) {
+    [[GameKitManager sharedGameKitManager] showLeaderboards:timeScope];
 }
 
-int showLeaderboard(const char *leaderboardId) {
-    [[GameKitManager sharedGameKitManager] showLeaderboard:@(leaderboardId)];
-    return 0;
+void showLeaderboards(const char *leaderboardId, int timeScope) {
+    [[GameKitManager sharedGameKitManager] showLeaderboards:@(leaderboardId) withTimeScope:timeScope];
 }
 
-int showAchievements() {
+void showAchievements() {
     [[GameKitManager sharedGameKitManager] showAchievements];
-    return 0;
+}
+
+void submitAchievement(const char *identifier, double percentComplete, CallbackFn fn , CallbackInfo* cbk) {
+    [[GameKitManager sharedGameKitManager] submitAchievement:@(identifier) withPercentComplete:percentComplete withCallback:fn withCallbackInfo:cbk];
+}
+
+void resetAchievements(CallbackFn fn , CallbackInfo* cbk) {
+    [[GameKitManager sharedGameKitManager] resetAchievements:fn withCallbackInfo:cbk];
 }
 // END API
 
