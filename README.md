@@ -8,25 +8,73 @@ Copy the whole gamecenter folder to your project root folder.
 ## APIs:
 - ###### Login
 ```lua
-gamecenter.login()
+local function login_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)	
+	end
+end
+
+gamecenter.login(login_cb)
 ```
 - ###### Report score to a specifed Leaderboard
 ```lua
-gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score)
+local function report_score_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
+gamecenter.reportScore({leaderboardId="com.siligame.example.defoldgamecenter.leaderboard", score=message.score}, report_score_cb)
+
+-- OR
+gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score, report_score_cb)
 ```
-- ###### Show all Leaderboards
+- ###### Show all Leaderboards with default time scope
 ```lua
 gamecenter.showLeaderboards()
 ```
+- ###### Show all Leaderboards with time scope
+```lua
+gamecenter.showLeaderboards({timeScope=gamecenter.LEADERBOARD_TIME_SCOPE_WEEK})
+-- OR
+gamecenter.showLeaderboards(gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)      
+```
 - ###### Show a specified Leaderboard
 ```lua    
-gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")     
+gamecenter.showLeaderboards({leaderboardId="com.siligame.example.defoldgamecenter.leaderboard", timeScope=gamecenter.LEADERBOARD_TIME_SCOPE_WEEK})
+-- OR
+gamecenter.showLeaderboards("com.siligame.example.defoldgamecenter.leaderboard", gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)       
 ```
 - ###### Show achievements
 ```lua
 gamecenter.showAchievements()     
 ```
+- ###### Submit Achievement
+```lua    
+local function submit_achievement_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
 
+gamecenter.submitAchievement({identifier="com.siligame.example.defoldgamecenter.achievementA", percentComplete=45.0}, submit_achievement_cb)  
+-- OR
+gamecenter.submitAchievement("com.siligame.example.defoldgamecenter.achievementA", percentComplete=45.0, submit_achievement_cb)         
+```
+- ###### Reset Achievements
+```lua
+local function reset_achievements_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)	
+	end
+end
+
+gamecenter.resetAchievements(reset_achievements_cb) 
+```
 ## Examples:
 ```lua
 -- Login --
@@ -36,7 +84,6 @@ local function login_cb(self, data)
 	if(data.error) then
 		print("===>code :" .. data.error.code)
 		print("===>message :" .. data.error.message)
-		
 	end
 end
 
@@ -56,7 +103,6 @@ local function submit_achievement_cb(self, data)
 	if(data.error) then
 		print("===>code :" .. data.error.code)
 		print("===>message :" .. data.error.message)
-		
 	end
 end
 
@@ -65,7 +111,6 @@ local function reset_achievements_cb(self, data)
 	if(data.error) then
 		print("===>code :" .. data.error.code)
 		print("===>message :" .. data.error.message)
-		
 	end
 end
 
