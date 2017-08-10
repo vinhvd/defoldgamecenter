@@ -5,65 +5,190 @@ Defold Game Center native extension. Only support basic funtionalities for now.
 ```
 Copy the whole gamecenter folder to your project root folder.
 ```
+## Constants:
+- ###### Leaderboard time scope
+```lua
+gamecenter.LEADERBOARD_TIME_SCOPE_TODAY,
+gamecenter.LEADERBOARD_TIME_SCOPE_WEEK,
+gamecenter.LEADERBOARD_TIME_SCOPE_ALLTIME
+```
+- ###### GameKit error code
+
+```lua
+gamecenter.GK_ERROR_UNKOWN,
+gamecenter.GK_ERROR_CACELLED,
+gamecenter.GK_ERROR_COMMUNICATIONS_FAILURE,
+gamecenter.GK_ERROR_USER_DENIED,
+gamecenter.GK_ERROR_INVALID_CREDENTIALS,
+gamecenter.GK_ERROR_NOT_AUTHENTICATED,
+gamecenter.GK_ERROR_AUTHENTICATION_IN_PROGRESS,
+gamecenter.GK_ERROR_INVALID_PLAYER,
+gamecenter.GK_ERROR_SCORE_NOT_SET,
+gamecenter.GK_ERROR_PARENTAL_CONTROLS_BLOCKED,
+gamecenter.GK_ERROR_PLAYER_STATUS_EXEEDS_MAXIMUM_LENGTH,
+gamecenter.GK_ERROR_PLAYER_STATUS_INVALID,
+gamecenter.GK_ERROR_MATCH_REQUEST_INVALID,
+gamecenter.GK_ERROR_UNDERAGE,
+gamecenter.GK_ERROR_GAME_UNRECOGNIZED,
+gamecenter.GK_ERROR_NOT_SUPPORTED,
+gamecenter.GK_ERROR_INVALID_PARAMETER,
+gamecenter.GK_ERROR_UNEXPECTED_CONNECTION,
+gamecenter.GK_ERROR_CHALLENGE_INVALID,
+gamecenter.GK_ERROR_TURN_BASED_MATCH_DATA_TOO_LARGE,
+gamecenter.GK_ERROR_TURN_BASED_TOO_MANY_SESSIONS,
+gamecenter.GK_ERROR_TURN_BASED_INVALID_PARTICIPANT,
+gamecenter.GK_ERROR_TURN_BASED_INVALID_TURN,
+gamecenter.GK_ERROR_TURN_BASED_INVALID_STATE,
+gamecenter.GK_ERROR_INVITATIONS_DISABLED,
+gamecenter.GK_ERROR_PLAYER_PHOTO_FAILURE,
+gamecenter.GK_ERROR_UBIQUITY_CONTAINER_UNAVAILABLE,
+gamecenter.GK_ERROR_MATCH_NOT_CONNECTED,
+gamecenter.GK_ERROR_GAME_SESSION_REQUEST_INVALID
+```
 ## APIs:
 - ###### Login
 ```lua
-gamecenter.login()
+local function login_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)	
+	end
+end
+
+gamecenter.login(login_cb)
 ```
 - ###### Report score to a specifed Leaderboard
 ```lua
-gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score)
+local function report_score_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
+gamecenter.reportScore({leaderboardId="com.siligame.example.defoldgamecenter.leaderboard", score=message.score}, report_score_cb)
+
+-- OR
+gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score, report_score_cb)
 ```
-- ###### Show all Leaderboards
+- ###### Show all Leaderboards with default time scope
 ```lua
 gamecenter.showLeaderboards()
 ```
+- ###### Show all Leaderboards with time scope
+```lua
+gamecenter.showLeaderboards({timeScope=gamecenter.LEADERBOARD_TIME_SCOPE_WEEK})
+-- OR
+gamecenter.showLeaderboards(gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)      
+```
 - ###### Show a specified Leaderboard
 ```lua    
-gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")     
+gamecenter.showLeaderboards({leaderboardId="com.siligame.example.defoldgamecenter.leaderboard", timeScope=gamecenter.LEADERBOARD_TIME_SCOPE_WEEK})
+-- OR
+gamecenter.showLeaderboards("com.siligame.example.defoldgamecenter.leaderboard", gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)       
 ```
 - ###### Show achievements
 ```lua
 gamecenter.showAchievements()     
 ```
+- ###### Submit Achievement
+```lua    
+local function submit_achievement_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
 
-## Limitation:
-- No callbacks.
-- No return values.
-- No Exception handle.
+gamecenter.submitAchievement({identifier="com.siligame.example.defoldgamecenter.achievementA", percentComplete=45.0}, submit_achievement_cb)  
+-- OR
+gamecenter.submitAchievement("com.siligame.example.defoldgamecenter.achievementA", percentComplete=45.0, submit_achievement_cb)         
+```
+- ###### Reset Achievements
+```lua
+local function reset_achievements_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)	
+	end
+end
 
+gamecenter.resetAchievements(reset_achievements_cb) 
+```
 ## Examples:
 ```lua
--- Login 
-if  gamecenter~= nil then
-    gamecenter.login()
-else
-    print("could not connect native code")
+-- Login --
+
+-- Login callback
+local function login_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
+-- Login
+function init(self) 
+    if  gamecenter~= nil then
+        gamecenter.login(login_cb)
+    else
+        print("could not connect native code")
+    end
 end
 
 -- Others --
 
+-- submit achievement callback
+local function submit_achievement_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
+-- reset achievement callback
+local function reset_achievements_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
+-- report score callback
+local function report_score_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
 -- Report score to a specified Leaderboard
 if message_id == hash("report_scores") then
   if gamecenter~= nil then
-    gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score)
+     gamecenter.reportScore({leaderboardId="com.siligame.example.defoldgamecenter.leaderboard", score=message.score}, report_score_cb)
   end
 -- Show all Leaderboards
 elseif message_id == hash("show_leaderboards") then
    if gamecenter~= nil then
-      gamecenter.showLeaderboards()
+      gamecenter.showLeaderboards(gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)
    end  
 -- Show a Leaderboard
 elseif message_id == hash("show_highscore") then
    if gamecenter~= nil then
-      gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")
+      gamecenter.showLeaderboards("com.siligame.example.defoldgamecenter.leaderboard", gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)      
    end     
 -- Show Achievements
 elseif message_id == hash("show_achievements") then
    if gamecenter~= nil then
      gamecenter.showAchievements()
    end 
-end 
+-- Submit Achievement
+elseif message_id == hash("submit_achievement") then
+        gamecenter.submitAchievement({identifier="com.siligame.example.defoldgamecenter.achievementA", percentComplete=45.0}, submit_achievement_cb)  
+-- Reset Achievements
+elseif message_id == hash("reset_achievements") then
+        gamecenter.resetAchievements(reset_achievements_cb)                
+end
 ```
 ## Screenshots:
 - ###### Log in
