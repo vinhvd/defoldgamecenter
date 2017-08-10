@@ -7,12 +7,14 @@ Copy the whole gamecenter folder to your project root folder.
 ```
 ## Constants:
 - ###### Leaderboard time scope
+```lua
 gamecenter.LEADERBOARD_TIME_SCOPE_TODAY,
 gamecenter.LEADERBOARD_TIME_SCOPE_WEEK,
 gamecenter.LEADERBOARD_TIME_SCOPE_ALLTIME
-
+```
 - ###### GameKit error code
 
+```lua
 gamecenter.GK_ERROR_UNKOWN,
 gamecenter.GK_ERROR_CACELLED,
 gamecenter.GK_ERROR_COMMUNICATIONS_FAILURE,
@@ -42,7 +44,7 @@ gamecenter.GK_ERROR_PLAYER_PHOTO_FAILURE,
 gamecenter.GK_ERROR_UBIQUITY_CONTAINER_UNAVAILABLE,
 gamecenter.GK_ERROR_MATCH_NOT_CONNECTED,
 gamecenter.GK_ERROR_GAME_SESSION_REQUEST_INVALID
-
+```
 ## APIs:
 - ###### Login
 ```lua
