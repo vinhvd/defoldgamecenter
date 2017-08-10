@@ -80,17 +80,17 @@ end
 -- Report score to a specified Leaderboard
 if message_id == hash("report_scores") then
   if gamecenter~= nil then
-    gamecenter.reportScore("com.siligame.example.defoldgamecenter.leaderboard", message.score)
+     gamecenter.reportScore({leaderboardId="com.siligame.example.defoldgamecenter.leaderboard", score=message.score}, report_score_cb)
   end
 -- Show all Leaderboards
 elseif message_id == hash("show_leaderboards") then
    if gamecenter~= nil then
-      gamecenter.showLeaderboards()
+      gamecenter.showLeaderboards(gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)
    end  
 -- Show a Leaderboard
 elseif message_id == hash("show_highscore") then
    if gamecenter~= nil then
-      gamecenter.showLeaderboard("com.siligame.example.defoldgamecenter.leaderboard")
+      gamecenter.showLeaderboards("com.siligame.example.defoldgamecenter.leaderboard", gamecenter.LEADERBOARD_TIME_SCOPE_WEEK)      
    end     
 -- Show Achievements
 elseif message_id == hash("show_achievements") then
