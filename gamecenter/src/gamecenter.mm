@@ -157,19 +157,6 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
         [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error) {
             if (error == NULL)
             {
-                NSArray *achievements = [NSArray array];
-                GKAchievement *a = [[GKAchievement alloc] initWithIdentifier:@"com.siligame.example.defoldgamecenter.achievementA"];
-   				a.percentComplete = 65.0;
-   				[achievements arrayByAddingObject:a];
-   				
-   				GKAchievement *b = [[GKAchievement alloc] initWithIdentifier:@"com.siligame.example.defoldgamecenter.achievementB"];
-   				b.percentComplete = 75.0;
-   				[achievements arrayByAddingObject:b];
-   				
-   				GKAchievement *c = [[GKAchievement alloc] initWithIdentifier:@"com.siligame.example.defoldgamecenter.achievementC"];
-   				c.percentComplete = 85.0;
-   				[achievements arrayByAddingObject:c];
-				
                 if(achievements != NULL && achievements.count > 0) {
                 	cbk->m_achievements.OffsetCapacity(achievements.count);
 	                for (GKAchievement *achievement in achievements)
