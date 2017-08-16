@@ -73,4 +73,5 @@ extern void showLeaderboards(int timeScope);
 extern void showLeaderboards(const char *leaderboardId, int timeScope);
 extern void showAchievements();
 extern void submitAchievement(const char *identifier, double percentComplete, CallbackFn fn , CallbackInfo* cbk);
+extern void loadAchievements(CallbackFn fn , CallbackInfo* cbk);
 extern void resetAchievements(CallbackFn fn , CallbackInfo* cbk);

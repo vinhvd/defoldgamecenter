@@ -36,10 +36,19 @@ struct GKError
     GKError(int code, const char *description) : m_code(code), m_description(description) {}
 };
 
+struct SAchievement
+{
+    const char	*m_identifier;
+    double			m_percentComplete;
+    SAchievement() : m_identifier(0), m_percentComplete(0.0) {}
+    SAchievement(const char *identifier, double percentComplete) : m_identifier(identifier), m_percentComplete(percentComplete) {}
+};
+
 struct CallbackInfo
 {
     LuaCallbackInfo *m_Cbk;
     GKError         *m_Error;
+    dmArray<SAchievement> m_achievements;
     CallbackInfo(): m_Error(0), m_Cbk(new LuaCallbackInfo()) {}
     void Delete(){
     	
@@ -57,6 +66,8 @@ typedef void (*CallbackFn)(CallbackInfo *cbkInfo);
 
 void registerCallback(lua_State* L, int index, LuaCallbackInfo* cbk);
 void invokeErrorCallback(CallbackInfo *cbkInfo);
+void invokeAchievementCallback(CallbackInfo *cbkInfo);
 void unregisterCallback(LuaCallbackInfo* cbk);
 int checkTableNumber(lua_State* L, int index, const char* name, int default_value);
 const char* toTableString(lua_State* L, int index, const char* name);
+static void stackDump (lua_State *L);

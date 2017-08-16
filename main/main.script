@@ -13,6 +13,13 @@ function init(self)
     end
 end
 
+local function report_score_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	end
+end
+
 local function submit_achievement_cb(self, data)
 	if(data.error) then
 		print("===>code :" .. data.error.code)
@@ -20,17 +27,26 @@ local function submit_achievement_cb(self, data)
 	end
 end
 
+local function load_achievements_cb(self, data)
+	if(data.error) then
+		print("===>code :" .. data.error.code)
+		print("===>message :" .. data.error.message)
+	elseif(data.achievements) then
+		print("{")
+		for i,v in ipairs(data.achievements) 
+		do 
+			for j,a in pairs(v) do
+				print(j .. "=" .. a) 
+			end
+		end
+		print("}")
+	end		
+end
+
 local function reset_achievements_cb(self, data)
 	if(data.error) then
 		print("===>code :" .. data.error.code)
 		print("===>message :" .. data.error.message)	
-	end
-end
-
-local function report_score_cb(self, data)
-	if(data.error) then
-		print("===>code :" .. data.error.code)
-		print("===>message :" .. data.error.message)
 	end
 end
 
@@ -46,7 +62,9 @@ function on_message(self, message_id, message, sender)
     elseif message_id == hash("submit_achievement") then
         gamecenter.submitAchievement({identifier="com.siligame.example.defoldgamecenter.achievementA", percentComplete=45.0}, submit_achievement_cb)  
     elseif message_id == hash("reset_achievements") then
-        gamecenter.resetAchievements(reset_achievements_cb)                
+        gamecenter.resetAchievements(reset_achievements_cb) 
+    elseif message_id == hash("load_achievements") then
+        gamecenter.loadAchievements(load_achievements_cb)                   
     end
 end
 

@@ -78,6 +78,49 @@ void invokeErrorCallback(CallbackInfo *cbkInfo)
     }
 }
 
+void invokeAchievementCallback(CallbackInfo *cbkInfo)
+{
+    if(cbkInfo->m_Cbk->m_Callback == LUA_NOREF)
+    {
+        return;
+    }
+    
+    lua_State* L = cbkInfo->m_Cbk->m_L;
+    DM_LUA_STACK_CHECK(L, 0);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, cbkInfo->m_Cbk->m_Callback);
+    
+    // Setup self (the script instance)
+    lua_rawgeti(L, LUA_REGISTRYINDEX, cbkInfo->m_Cbk->m_Self);
+    lua_pushvalue(L, -1);
+    dmScript::SetInstance(L);
+    
+    lua_newtable(L);
+    
+    if(cbkInfo->m_achievements.Size() > 0) {
+	    lua_newtable(L);
+	    int count = 0;
+	    for(uint32_t i = 0; i != cbkInfo->m_achievements.Size(); ++i) {
+	    	SAchievement* sAchievement = &cbkInfo->m_achievements[i];
+	    	lua_newtable(L);
+			lua_pushstring(L, sAchievement->m_identifier);
+			lua_setfield(L, -2, "identifier");
+			lua_pushnumber(L, sAchievement->m_percentComplete);
+			lua_setfield(L, -2, "percentComplete");
+			lua_rawseti(L, -2, count + 1);
+			count++;
+	    	cbkInfo->m_achievements.EraseSwap(i--);
+	    }
+    	lua_setfield(L, -2, "achievements");
+    }
+    
+    int number_of_arguments = 2; // instance + 1
+    int ret = lua_pcall(L, number_of_arguments, 0, 0);
+    if(ret != 0) {
+        dmLogError("Error running callback: %s", lua_tostring(L, -1));
+        lua_pop(L, 1);
+    }
+}
+
 void unregisterCallback(LuaCallbackInfo* cbk)
 {
     if(cbk->m_Callback != LUA_NOREF)
@@ -144,3 +187,29 @@ const char* toTableString(lua_State* L, int index, const char* name)
     lua_pop(L, 1);
     return result;
 }
+
+static void stackDump (lua_State *L) {
+                int i;
+                int top = lua_gettop(L);  /* depth of the stack */
+                for (i = 1; i <= top; i++) {  /* repeat for each level */
+                  int t = lua_type(L, i);
+                  switch (t) {
+                    case LUA_TSTRING: {  /* strings */
+                      printf("'%s'", lua_tostring(L, i));
+                      break;
+                    }
+                    case LUA_TBOOLEAN: {  /* Booleans */
+                      printf(lua_toboolean(L, i) ? "true" : "false");
+break; }
+                    case LUA_TNUMBER: {  /* numbers */
+                      printf("%g", lua_tonumber(L, i));
+                      break;
+                    }
+                    default: {  /* other values */
+                      printf("%s", lua_typename(L, t));
+break; }
+}
+                  printf("  ");  /* put a separator */
+                }
+                printf("\n");  /* end the listing */
+              }

@@ -11,8 +11,8 @@ background_color {
 }
 nodes {
   position {
-    x: 1095.4257
-    y: 433.62177
+    x: 1131.2883
+    y: 626.9684
     z: 0.0
     w: 1.0
   }
@@ -23,8 +23,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0082294
-    y: 0.68
+    x: 0.6
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -128,12 +128,12 @@ nodes {
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
-    x: 1097.3438
-    y: 237.27242
+    x: 1137.8842
+    y: 475.8372
     z: 0.0
     w: 1.0
   }
@@ -144,8 +144,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 0.6813561
+    x: 0.6
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -249,12 +249,12 @@ nodes {
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
-    x: 1095.0765
-    y: 136.24753
+    x: 1138.7355
+    y: 293.73148
     z: 0.0
     w: 1.0
   }
@@ -265,8 +265,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 0.68
+    x: 0.6
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -370,7 +370,7 @@ nodes {
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -436,12 +436,12 @@ nodes {
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
-    x: 1097.3438
-    y: 334.2342
+    x: 1136.325
+    y: 552.52875
     z: 0.0
     w: 1.0
   }
@@ -452,8 +452,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.99622226
-    y: 0.6813561
+    x: 0.6
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -557,12 +557,12 @@ nodes {
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
-    x: 1026.7603
-    y: 538.55444
+    x: 1117.1965
+    y: 215.79033
     z: 0.0
     w: 1.0
   }
@@ -573,8 +573,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.6641859
-    y: 0.68
+    x: 0.80660003
+    y: 0.48509413
     z: 1.0
     w: 1.0
   }
@@ -678,12 +678,12 @@ nodes {
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
-    x: 1076.6561
-    y: 635.2278
+    x: 1140.5852
+    y: 47.39168
     z: 0.0
     w: 1.0
   }
@@ -694,8 +694,129 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.1964118
-    y: 0.68
+    x: 0.6
+    y: 0.5
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 0.73333335
+    z: 0.21176472
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: ""
+  id: "loadAchievementsBtn"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  layer: ""
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 5.9559903
+    y: -4.410555
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.2296981
+    y: 3.591663
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_TEXT
+  blend_mode: BLEND_MODE_ALPHA
+  text: "Load Achievements"
+  font: "system_font"
+  id: "loadAchievementsText"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  adjust_mode: ADJUST_MODE_FIT
+  line_break: false
+  parent: "loadAchievementsBtn"
+  layer: ""
+  inherit_alpha: true
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  outline_alpha: 1.0
+  shadow_alpha: 1.0
+  template_node_child: false
+  text_leading: 1.0
+  text_tracking: 0.0
+  size_mode: SIZE_MODE_MANUAL
+}
+nodes {
+  position {
+    x: 1135.9075
+    y: 131.59102
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 0.6
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -732,7 +853,7 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: false
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -799,7 +920,7 @@ nodes {
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

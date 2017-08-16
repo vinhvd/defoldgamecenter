@@ -18,6 +18,10 @@
  *******************************************************************************/
  
 #include <dmsdk/sdk.h>
+#include <vector>
+#include <map>
+#include <string>
+
 #include "gamecenter_private.h"
 #include <Foundation/Foundation.h>
 #include <GameKit/GameKit.h>
@@ -25,6 +29,8 @@
 #if defined(DM_PLATFORM_IOS)
 #include <UIKit/UIKit.h>
 #endif
+
+using namespace std;
 
 #if defined(DM_PLATFORM_IOS) || defined(DM_PLATFORM_OSX)
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
@@ -137,6 +143,7 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
 {
     GKAchievement *achievement = [[[GKAchievement alloc] initWithIdentifier:identifier]  autorelease];
     [achievement setPercentComplete:percentComplete];
+    achievement.showsCompletionBanner = YES;
     [achievement reportAchievementWithCompletionHandler:^(NSError  *error) {
         if (error)
         {
@@ -144,6 +151,37 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
         }
         fn(cbk);
     }];
+}
+
+- (void)loadAchievements:(CallbackFn)fn withCallbackInfo:(CallbackInfo*) cbk {
+        [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error) {
+            if (error == NULL)
+            {
+                NSArray *achievements = [NSArray array];
+                GKAchievement *a = [[GKAchievement alloc] initWithIdentifier:@"com.siligame.example.defoldgamecenter.achievementA"];
+   				a.percentComplete = 65.0;
+   				[achievements arrayByAddingObject:a];
+   				
+   				GKAchievement *b = [[GKAchievement alloc] initWithIdentifier:@"com.siligame.example.defoldgamecenter.achievementB"];
+   				b.percentComplete = 75.0;
+   				[achievements arrayByAddingObject:b];
+   				
+   				GKAchievement *c = [[GKAchievement alloc] initWithIdentifier:@"com.siligame.example.defoldgamecenter.achievementC"];
+   				c.percentComplete = 85.0;
+   				[achievements arrayByAddingObject:c];
+				
+                if(achievements != NULL && achievements.count > 0) {
+                	cbk->m_achievements.OffsetCapacity(achievements.count);
+	                for (GKAchievement *achievement in achievements)
+	                {
+	                   cbk->m_achievements.Push(SAchievement([achievement.identifier UTF8String], achievement.percentComplete));
+	                }
+                }
+            } else {
+                cbk->m_Error = new GKError([error code], [[error localizedDescription] UTF8String]);
+            }
+            fn(cbk);
+        }];   
 }
 
 - (void)resetAchievements:(CallbackFn)fn withCallbackInfo:(CallbackInfo*) cbk {
@@ -251,6 +289,10 @@ void showAchievements() {
 
 void submitAchievement(const char *identifier, double percentComplete, CallbackFn fn , CallbackInfo* cbk) {
     [[GameKitManager sharedGameKitManager] submitAchievement:@(identifier) withPercentComplete:percentComplete withCallback:fn withCallbackInfo:cbk];
+}
+
+void loadAchievements(CallbackFn fn , CallbackInfo* cbk) {
+    [[GameKitManager sharedGameKitManager] loadAchievements:fn withCallbackInfo:cbk];
 }
 
 void resetAchievements(CallbackFn fn , CallbackInfo* cbk) {

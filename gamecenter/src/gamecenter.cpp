@@ -135,6 +135,25 @@ static int submitAchievement(lua_State* L)
     return 0;
 }
 
+static void _loadAchievements(CallbackInfo *cbkInfo) {
+	if(cbkInfo->m_Error) {
+    	invokeErrorCallback(cbkInfo);
+    }else {
+    	invokeAchievementCallback(cbkInfo);
+    }
+    unregisterCallback(cbkInfo->m_Cbk);
+}
+
+/** Load Achievements
+ */
+static int loadAchievements(lua_State* L)
+{
+    DM_LUA_STACK_CHECK(L, 0);
+    registerCallback(L, 1, g_cbkInfo->m_Cbk);
+    loadAchievements(_loadAchievements, g_cbkInfo);
+    return 0;
+}
+
 /** Reset Achievement
  */
 static int resetAchievements(lua_State* L)
@@ -152,6 +171,7 @@ static const luaL_reg Module_methods[] =
     {"showLeaderboards", showLeaderboards},
     {"showAchievements", showAchievements},
     {"submitAchievement", submitAchievement},
+    {"loadAchievements", loadAchievements},
     {"resetAchievements", resetAchievements},
     {0, 0}
 };
