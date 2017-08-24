@@ -5,7 +5,7 @@ Defold Game Center native extension. Only support basic funtionalities for now.
 You can use Defold-LFS in your own project by adding this project as a [Defold library dependency](http://www.defold.com/manuals/libraries/). Open your game.project file and in the dependencies field under project add:
 
 ```
-	https://github.com/gregorgullwi/vinhvd/archive/master.zip
+	https://github.com/vinhvd/defoldgamecenter/archive/master.zip
 ```
 
 Or point to the ZIP file of a [specific release](https://github.com/vinhvd/defoldgamecenter/releases).
