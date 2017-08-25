@@ -47,3 +47,5 @@ launch_image_2048x1536 = /supportfiles/ios/launch/iPad Landscape iOS 7-9@2x.png
 launch_image_2048x2732 = /supportfiles/ios/launch/2048_2732.png
 launch_image_2732x2048 = /supportfiles/ios/launch/2732-2048.png
 
+[library]
+include_dirs = gamecenter
