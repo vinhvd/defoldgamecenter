@@ -20,7 +20,9 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#if defined(DM_PLATFORM_IOS) || defined(DM_PLATFORM_OSX)
 #include <unistd.h>
+#endif
 
 #define EXTENSION_NAME GameCenter
 #define LIB_NAME "GameCenter"
