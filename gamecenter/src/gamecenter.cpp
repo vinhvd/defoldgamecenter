@@ -20,7 +20,6 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
 #define EXTENSION_NAME GameCenter
 #define LIB_NAME "GameCenter"
@@ -31,7 +30,7 @@
 #include <dmsdk/sdk.h>
 
 #if defined(DM_PLATFORM_IOS) || defined(DM_PLATFORM_OSX)
-
+#include <unistd.h>
 #include "gamecenter_private.h"
 
 CallbackInfo *g_cbkInfo = 0;
